@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -54,6 +55,65 @@ namespace Infraestructura.Productos
             Array.Copy(productos, tmp ,tmp.Length);
             productos = tmp;
             return productos.Length == tmp.Length;
+        }
+
+        public Producto[] GetProductosByUnidadMedida(UnidadMedida um)
+        {
+            Producto[] tmp = null;
+
+            if (productos == null)
+            {
+                return tmp;
+            }
+            foreach(Producto p in productos)
+            {
+                if(p.unidadMedida == um)
+                {
+                    Add(p, ref tmp);
+                    
+                }
+            }
+            return tmp;
+        }
+        public Producto[] GetProductosByVencimiento(DateTime dt)
+        {
+            Producto[] tmp = null;
+            if (productos == null)
+            {
+                return tmp;
+            }
+            foreach (Producto p in productos)
+            {
+                if (p.FechaVencimiento.CompareTo(dt)<= 0)//compareto devuelve un -1 cuando es menor, 1 cuando es mayor y 0 cuando es igual
+                {
+                    Add(p, ref tmp);
+
+                }
+            }
+            return tmp;
+        }
+        public Producto[] GetProductosByRangoPrecio(decimal start, decimal end)
+        {
+            Producto[] tmp = null;
+            if (productos == null)
+            {
+                return tmp;
+            }
+            foreach (Producto p in productos)
+            {
+                if (p.Precio<= end && p.Precio>=start)
+                {
+                    Add(p, ref tmp);
+
+                }
+            }
+            return tmp;
+        }
+
+        public Producto[] GetProductosOrderByPrecio()
+        {
+            Array.Sort(productos, new Producto.ProductoPrecioComparer);
+            return productos;
         }
         #endregion
 
