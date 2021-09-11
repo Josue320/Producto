@@ -115,6 +115,11 @@ namespace Infraestructura.Productos
             Array.Sort(productos, new Producto.ProductoPrecioComparer);
             return productos;
         }
+
+        public int GetLastProductoId()
+        {
+            return productos == null ? 0 : productos[productos.Length - 1].Id;
+        }
         #endregion
 
         #region Private Method

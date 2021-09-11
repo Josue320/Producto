@@ -1,18 +1,27 @@
 ﻿using Domain.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Domain.Entities
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class Producto
     {
+        [JsonProperty]
         public int Id { get; set; }
+        [JsonProperty]
         public string Nombres { get; set; }
+        [JsonProperty]
         public string Descripcion { get; set; }
+        [JsonProperty]
         public int Existencia { get; set; }
+        [JsonProperty]
         public decimal Precio { get; set; }
+        [JsonProperty]
         public DateTime FechaVencimiento { get; set; }
+        [JsonProperty]
         public UnidadMedida unidadMedida { get; set; }
         public class ProductoPrecioComparer : IComparer<Producto>
         {
